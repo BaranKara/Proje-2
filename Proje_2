@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function validateForm() {
+  //Input-1
+  var name=document.querySelector("#name").value;
+  if(name=="") {
+    alert("İsim boş bırakılamaz!");    
+  }
+
+  //Input-2
+  var email=document.querySelector("#email").value;
+  if(email=="") {
+    alert("Email boş bırakılamaz!");    
+  }
+  else if(email.slice(email.length-4)!=".com") {
+    alert("Email '.com' ile bitmelidir!");    
+  }
+
+  //Input-3
+  var sayisal=document.querySelector("#sayisal").value;
+  if(sayisal=="") {
+    alert("Kısım-3 (Sadece sayısal) boş bırakılamaz");    
+  }
+  else {    
+    for(var i=0;i<sayisal.length;i++) {
+      if(sayisal[i].charCodeAt(0)<48 || sayisal[i].charCodeAt(0)>57) {
+        alert("Kısım-3 (Sadece sayısal) yalnızca rakam içerebilir");        
+      }
+    }
+  }
+
+  //Input-4
+  var basamakli=document.querySelector("#basamakli").value;
+  if(basamakli=="") {
+    alert("Kısım-4 (Sadece sayısal olan ve 12 basamak uzunluğundaki sayı) boş bırakılamaz");    
+  }
+  else {    
+    for(var i=0;i<basamakli.length;i++) {
+      if(basamakli[i].charCodeAt(0)<48 || basamakli[i].charCodeAt(0)>57) {
+        alert("Kısım-4 (Sadece sayısal olan ve 12 basamak uzunluğundaki sayı) yalnızca rakam içerebilir");        
+      }
+    }
+    if(basamakli.length!=12) {
+      alert("Kısım-4 (Sadece sayısal olan ve 12 basamak uzunluğundaki sayı) 12 basamaktan oluşmalıdır!");      
+    }
+  }
+
+  //Input-5
+  var alfa=document.querySelector("#alfa").value;
+  var alfaLower=alfa.toLowerCase();
+  if(alfa=="") {
+    alert("Kısım-5 (Sadece harf) boş bırakılamaz");    
+  }
+  else {    
+    for(var i=0;i<alfaLower.length;i++) {
+      if(alfaLower[i].charCodeAt(0)<97 || alfaLower[i].charCodeAt(0)>122) {
+        alert("Kısım-5 (Sadece harf) yalnızca harf içerebilir");        
+      }
+    }
+  }
+
+  //Input-6
+  var max30=document.querySelector("#max30").value;
+  var max30Lower=max30.toLowerCase();
+  if(max30=="") {
+    alert("Kısım-6 (Sadece harf ve en fazla 30 uzunlukta olan string) boş bırakılamaz");    
+  }
+  else {    
+    for(var i=0;i<max30Lower.length;i++) {
+      if(max30Lower[i].charCodeAt(0)<97 || max30Lower[i].charCodeAt(0)>122) {
+        alert("Kısım-6 (Sadece harf ve en fazla 30 uzunlukta olan string) yalnızca harf içerebilir");        
+      }
+    }
+    if(max30.length>30) {
+      alert("Kısım-6 (Sadece harf ve en fazla 30 uzunlukta olan string) en fazla 30 harften oluşmalıdır!");      
+    }
+  }
+
+  //Input-7 (Kısıt belirtilmediği için rakam da kabul etmektedir.)
+  var uckelime=document.querySelector("#uckelime").value;
+  uckelime=uckelime.trim();
+  var kelimeler=uckelime.split(' ');
+  if(uckelime=="") {
+    alert("Kısım-7 (3 kelimeden oluşan string) boş bırakılamaz");    
+  }
+  else {
+    if(kelimeler.length!=3) {
+      alert("Kısım-7 (3 kelimeden oluşan string) 3 kelimeden oluşmalıdır!");      
+    }
+  }
+
+  //Input-8
+  var password=document.querySelector("#password").value;
+  var passwordKucuk=0;
+  var passwordBuyuk=0;
+  var passwordRakam=0;
+  var passwordNoktalama=0;
+  if(password=="") {
+    alert("Kısım-8 (Parola) boş bırakılamaz");    
+  }
+  else {    
+    for(var i=0;i<password.length;i++) {
+      if(password[i].charCodeAt(0)>=97 && password[i].charCodeAt(0)<=122) {
+        passwordKucuk++;        
+      }
+      else if(password[i].charCodeAt(0)>=65 && password[i].charCodeAt(0)<=90) {
+        passwordBuyuk++;
+      }
+      else if(password[i].charCodeAt(0)>=48 && password[i].charCodeAt(0)<=57) {
+        passwordRakam++;
+      }
+      else if((password[i].charCodeAt(0)>=33 && password[i].charCodeAt(0)<=47) || (password[i].charCodeAt(0)>=58 && password[i].charCodeAt(0)<=64) || (password[i].charCodeAt(0)>=91 && password[i].charCodeAt(0)<=96) ||(password[i].charCodeAt(0)>=123 && password[i].charCodeAt(0)<=126)) {
+        passwordNoktalama++;
+      }
+    }
+    if(passwordKucuk==0 || passwordBuyuk==0 || passwordRakam==0 || passwordNoktalama==0 || password.length<8) {
+      alert("Kısım-8 (Parola) en az 8 uzunlukta olmalıdır ve şunlardan en az birer tane içermelidir: Büyük harf, küçük harf, rakam, noktalama");
+    }
+  }
+  return false;
+}
+</script>
+</head>
+<body>
+
+<form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
+  Aşağıdaki hiçbir input boş olmamalı: <br>
+  
+
+  <table style="width:40%">
+  <tr>
+    <td>Boş olmamalı: </td>
+    <td><input type="text" id="name"></td>
+    
+  </tr>
+  <tr>
+    <td>E-mail (Kurallara uygun email): </td>
+    <td><input type="text" id="email"></td>
+    
+  </tr>
+  <tr>
+    <td>Sadece sayısal: </td>
+    <td><input type="text" id="sayisal"></td>
+  </tr>
+  <tr>
+    <td>Sadece sayısal olan ve 12 basamak uzunluğundaki sayi: </td>
+    <td><input type="text" id="basamakli"></td>
+  </tr>
+  <tr>
+    <td>Sadece harf (a..z veya A..Z): </td>
+    <td><input type="text" id="alfa"></td>
+  </tr>
+  <tr>
+    <td>Sadece harf ve en fazla 30 uzunlukta olan string: </td>
+    <td><input type="text" id="max30"></td>
+  </tr>
+  <tr>
+    <td>3 kelimeden oluşan string: </td>
+    <td><input type="text" id="uckelime"></td>
+  </tr>
+  <tr>
+    <td>En az 1 büyük harf, en az 1 küçük harf, en az bir rakam ve en az 1 noktalama işareti içeren ve en az 8 uzunluğunda olan metin: </td>
+    <td><input type="text" id="password"></td>
+  </tr>
+  
+
+</table>
+
+<br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
